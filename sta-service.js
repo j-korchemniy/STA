@@ -7,8 +7,42 @@
 
     function STAService() {
 
-        this.getSomething = function () {
-            return "Hello World";
+        let location;
+
+        this.initialize = function (done) {
+            getLocation(done);
+        };
+
+        this.loadBusMap = function () {
+            console.log("Loading bus map. " + JSON.stringify(location));
+        }
+
+        this.loadServicingRoutes = function () {
+            console.log("Loading servicing buses information. " + JSON.stringify(location));
+        }
+
+        this.loadUpcomingBuses = function () {
+            console.log("Loading upcoming buses. " + JSON.stringify(location));
+        }
+
+        // Private helper functions
+        function getLocation(done) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    location = {
+                        'latitude': position.coords.latitude,
+                        'longitude': position.coords.longitude
+                    };
+                    done();
+                });
+            } else {
+                // Default current location to cheney
+                location = {
+                    'latitude': 47.491127,
+                    'longitude': -117.581512
+                };
+                done();
+            }
         }
 
     }
