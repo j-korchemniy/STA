@@ -7,14 +7,20 @@
 
     function STAService() {
 
-        let location;
+        var location;
 
         this.initialize = function (done) {
             getLocation(done);
         };
 
         this.loadBusMap = function () {
-            console.log("Loading bus map. " + JSON.stringify(location));
+            var options = {
+                zoom: 16,
+                center: new google.maps.LatLng(location.latitude, location.longitude)
+            }
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            var transitLayer = new google.maps.TransitLayer();
+            transitLayer.setMap(map);
         }
 
         this.loadServicingRoutes = function () {
