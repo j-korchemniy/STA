@@ -1,5 +1,9 @@
 $(function () {
 
+    //Initialize Material Components Web Framework
+    window.mdc.autoInit();
+    initializeTopBarNav();
+
     // Run() after fetching geolocation
     services.sta.initialize(run);
 
@@ -19,4 +23,11 @@ $(function () {
         services.sta.loadUpcomingBuses();
     }
 
+    function initializeTopBarNav() {
+        const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+        const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('app-bar'));
+        topAppBar.listen('MDCTopAppBar:nav', () => {
+          drawer.open = !drawer.open;
+        });
+    }
 });
