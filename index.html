@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>STA</title>
-		<link rel="stylesheet" type="text/css" href="styles.css">
-		<link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-	</head>
 
-	<body>
-		<aside class="mdc-drawer mdc-drawer--dismissible">
-			<div class="mdc-drawer__content">
-				<div class="mdc-list">
-					<a class="mdc-list-item mdc-list-item--activated" href="#" aria-selected="true">
-						<i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
-						<span class="mdc-list-item__text">Link 1</span>
-					</a>
-					<a class="mdc-list-item" href="#">
-						<i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
-						<span class="mdc-list-item__text">Link 2</span>
-					</a>
-					<a class="mdc-list-item" href="#">
-						<i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
-						<span class="mdc-list-item__text">Link 3</span>
-					</a>
-				</div>
+<head>
+	<title>STA</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	 crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<aside class="mdc-drawer mdc-drawer--dismissible">
+		<div class="mdc-drawer__content">
+			<div class="mdc-list">
+				<a class="mdc-list-item mdc-list-item--activated" href="#" aria-selected="true">
+					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+					<span class="mdc-list-item__text">Link 1</span>
+				</a>
+				<a class="mdc-list-item" href="#">
+					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+					<span class="mdc-list-item__text">Link 2</span>
+				</a>
+				<a class="mdc-list-item" href="#">
+					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+					<span class="mdc-list-item__text">Link 3</span>
+				</a>
 			</div>
-		</aside>
-			
-		<div class="mdc-drawer-app-content">
-			<header class="mdc-top-app-bar app-bar" id="app-bar">
-				<div class="mdc-top-app-bar__row">
+		</div>
+	</aside>
+
+	<div class="mdc-drawer-app-content">
+		<header class="mdc-top-app-bar app-bar" id="app-bar">
+			<div class="mdc-top-app-bar__row">
 				<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
 					<a href="#" class="demo-menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
 					<span class="mdc-top-app-bar__title">STA Rider App</span>
@@ -44,6 +46,12 @@
 				<div id="routed-content">
 				</div>
 				<div id="map"></div>
+				<div>
+					<h2>Nearby Bus Stop Information:</h2>
+					<p id="bus-info-dump"></p>
+					<h2>Schedule information example:</h2>
+					<p id="schedule-info-dump"></p>
+				</div>
 			</main>
 		</div>
 	</body>
@@ -52,4 +60,5 @@
 	<script type="text/javascript" src="sta-service.js"></script>
 	<script type="text/javascript" src="view-router.js"></script>
 	<script type="text/javascript" src="app.js"></script>
+
 </html>

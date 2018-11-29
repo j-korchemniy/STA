@@ -1,8 +1,5 @@
 (function (services) {
 
-    // Google API key... Should be good for map, transit, and places apis
-    // AIzaSyC6Bmqdj6b6GsrGyOsawtQscPwcGgzBF8g
-
     services.sta = new STAService();
 
     function STAService() {
@@ -19,16 +16,51 @@
                 center: new google.maps.LatLng(location.latitude, location.longitude)
             }
             var map = new google.maps.Map(document.getElementById('map'), options);
+
+            // TODO: Could use the data from transit land to draw markers
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
         }
 
         this.loadServicingRoutes = function () {
-            console.log("Loading servicing buses information. " + JSON.stringify(location));
+
+            var options = {
+                "lat": location.latitude,
+                "lon": location.longitude,
+                "r": "1000",
+            };
+
+            $.ajax({
+                url: "https://transit.land/api/v1/stops?",
+                type: "GET",
+                dataType: 'json',
+                data: options,
+                success: function (response) {
+                    $("#bus-info-dump").html(JSON.stringify(response));
+                },
+                error: function (xhr) {
+                    console.error("Failed to get nearby bus stop information.");
+                }
+            });
         }
 
-        this.loadUpcomingBuses = function () {
-            console.log("Loading upcoming buses. " + JSON.stringify(location));
+        this.loadUpcomingBuses = function (busStopId) {
+            var options = {
+                "origin_onestop_id": busStopId,
+            };
+
+            $.ajax({
+                url: "https://transit.land/api/v1/schedule_stop_pairs?",
+                type: "GET",
+                dataType: 'json',
+                data: options,
+                success: function (response) {
+                    $("#schedule-info-dump").html(JSON.stringify(response));
+                },
+                error: function (xhr) {
+                    console.error("Failed to get bus schedule information");
+                }
+            });
         }
 
         // Private helper functions
