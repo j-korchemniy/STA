@@ -4,6 +4,11 @@ $(function () {
     window.mdc.autoInit();
     initializeTopBarNav();
 
+    const router = new ViewRouter('routed-content');
+    router.addRoute('testRoute1', () => $('<p>').text('Testing 123'));
+
+    router.routeContent('testRoute1');
+
     // Run() after fetching geolocation
     services.sta.initialize(run);
 
