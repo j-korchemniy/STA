@@ -4,10 +4,14 @@ $(function () {
     window.mdc.autoInit();
     initializeTopBarNav();
 
-    const router = new ViewRouter('routed-content');
+    const router = new ViewRouter('#routed-content');
     router.addRoute('testRoute1', () => $('<p>').text('Testing 123'));
+    router.addRoute('testRoute2', () => $('<p>').text('Testing 456'));
+    router.addRoute('testRoute3', () => $('<p>').text('Testing 789'));
 
     router.routeContent('testRoute1');
+
+    $('.nav-link').on('click', (evt) => router.routeContent($(evt.target).data('route')));
 
     // Run() after fetching geolocation
     services.sta.initialize(updateUI());
