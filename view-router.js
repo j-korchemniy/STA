@@ -11,7 +11,7 @@ class ViewRouter {
     routeContent(handlerName) {
         this.$contentView.empty();
         const content = this.routes[handlerName].render();
-        this.routes[handlerName].initialize();
         this.$contentView.append(content);
+        this.routes[handlerName].initialize();
     }
 }

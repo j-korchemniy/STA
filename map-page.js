@@ -4,10 +4,19 @@ class MapPage {
     }
 
     initialize() {
-        //Where the page initializes the needed methods for operations
+        //Run() after fetching geolocation
+        services.sta.initialize(updateUI());
+
+        function updateUI() {
+            services.sta.loadBusMap();
+            services.sta.loadServicingRoutes();
+
+            // Example usage for getting time information for given stop
+            services.sta.loadUpcomingBuses("s-c2kqk8mrkf-betz~alogdonway");
+        }
     }
 
     render() {
-        return $('<p>').text('Testing 123');
+        return $('<div>').attr('id', 'map');
     }
 }

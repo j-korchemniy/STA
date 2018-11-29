@@ -11,7 +11,8 @@ $(function () {
 
     $('.nav-link').on('click', (evt) => router.routeContent($(evt.target).data('route')));
 
-    // Run() after fetching geolocation
+    /* Moved to map-page.js
+    //Run() after fetching geolocation
     services.sta.initialize(updateUI());
 
     function updateUI() {
@@ -20,7 +21,7 @@ $(function () {
 
         // Example usage for getting time information for given stop
         services.sta.loadUpcomingBuses("s-c2kqk8mrkf-betz~alogdonway");
-    }
+    }*/
 
     function initializeTopBarNav() {
         const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
