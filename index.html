@@ -14,11 +14,11 @@
 	<aside class="mdc-drawer mdc-drawer--dismissible">
 		<div class="mdc-drawer__content">
 			<div class="mdc-list">
-				<a class="nav-link mdc-list-item mdc-list-item--activated" data-route="testRoute1" href="#" aria-selected="true">
+				<a class="nav-link mdc-list-item mdc-list-item--activated" data-route="map" href="#" aria-selected="true">
 					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
-					<span class="mdc-list-item__text">Link 1</span>
+					<span class="mdc-list-item__text">Map</span>
 				</a>
-				<a class="nav-link mdc-list-item" data-route="testRoute2" href="#">
+				<a class="nav-link mdc-list-item" data-route="testRoute" href="#">
 					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
 					<span class="mdc-list-item__text">Link 2</span>
 				</a>
@@ -55,9 +55,18 @@
 			</main>
 		</div>
 	</body>
+	<!--Dependancies-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6Bmqdj6b6GsrGyOsawtQscPwcGgzBF8g"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+	<!--Services-->
 	<script type="text/javascript" src="sta-service.js"></script>
+
+	<!--App Pages-->
+	<script type="text/javascript" src="map-page.js"></script>
+	<script type="text/javascript" src="test-page.js"></script>
+
+	<!--App-->
 	<script type="text/javascript" src="view-router.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 

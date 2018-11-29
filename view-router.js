@@ -4,13 +4,14 @@ class ViewRouter {
         this.$contentView = $(contentViewSelector);
     }
 
-    addRoute(handlerName, handlerFunction) {
-        this.routes[handlerName] = handlerFunction;
+    addRoute(handlerName, handler) {
+        this.routes[handlerName] = handler;
     }
 
     routeContent(handlerName) {
         this.$contentView.empty();
-        const content = this.routes[handlerName](this.$contentView);
+        const content = this.routes[handlerName].render();
+        this.routes[handlerName].initialize();
         this.$contentView.append(content);
     }
 }
