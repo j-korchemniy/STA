@@ -5,6 +5,7 @@
     function STAService() {
 
         var location;
+        var nearbyStops;
 
         this.initialize = function (done) {
             getLocation(done);
@@ -17,9 +18,26 @@
             }
             var map = new google.maps.Map(document.getElementById('map'), options);
 
-            // TODO: Could use the data from transit land to draw markers
+            //map wouldn't load for me when style="position: relative;" so I forced it to absolute for testing
+            //document.getElementById('map').style="position: absolute;";
+
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
+            
+            //Creates markers for every stop within 1000 meters of current lat/long
+            $.when(getNearbyStops()).done(function(){
+                  for(ix = 0; ix < nearbyStops.length; ix++)
+                  {
+                      var lat = nearbyStops[ix].geometry.coordinates[1];
+                      var lng = nearbyStops[ix].geometry.coordinates[0];
+
+                      var marker = new google.maps.Marker({
+                          position: new google.maps.LatLng(lat, lng),
+                          map: map,
+                          title: nearbyStops[ix].name    
+                      });
+                  }
+            });
         }
 
         this.loadServicingRoutes = function () {
@@ -82,7 +100,24 @@
                 done();
             }
         }
-
+        
+        function getNearbyStops()
+        {
+            return $.ajax({
+                url: "https://transit.land/api/v1/stops",
+                type: "GET",
+                dataType: 'json',
+                data: {"lat": location.latitude, "lon": location.longitude, "r": "1000"},
+                success: function (response)
+                {
+                    nearbyStops = response["stops"];
+                },
+                error: function (xhr)
+                {
+                    console.error("Failed to get nearby stops");
+                }
+            });
+        }
     }
 
 })(window.services = window.services || {});
