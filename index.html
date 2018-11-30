@@ -15,16 +15,16 @@
 		<div class="mdc-drawer__content">
 			<div class="mdc-list">
 				<a class="nav-link mdc-list-item mdc-list-item--activated" data-route="map" href="#" aria-selected="true">
-					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">layers</i>
 					<span class="mdc-list-item__text">Map</span>
 				</a>
-				<a class="nav-link mdc-list-item" data-route="testRoute" href="#">
-					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
-					<span class="mdc-list-item__text">Link 2</span>
+				<a class="nav-link mdc-list-item" data-route="nearbyStop" href="#">
+					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">add_location</i>
+					<span class="mdc-list-item__text">Nearby Stops</span>
 				</a>
-				<a class="nav-link mdc-list-item" data-route="testRoute3" href="#">
-					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
-					<span class="mdc-list-item__text">Link 3</span>
+				<a class="nav-link mdc-list-item" data-route="scheduleInfo" href="#">
+					<i class="material-icons mdc-list-item__graphic" aria-hidden="true">departure_board</i>
+					<span class="mdc-list-item__text">Schedule Info</span>
 				</a>
 			</div>
 		</div>
@@ -43,15 +43,7 @@
 			<main class="main-content" id="main-content">
 				<div class="mdc-top-app-bar--fixed-adjust">
 				</div>
-				<div id="routed-content">
-				</div>
-				<div id="map"></div>
-				<div>
-					<h2>Nearby Bus Stop Information:</h2>
-					<p id="bus-info-dump"></p>
-					<h2>Schedule information example:</h2>
-					<p id="schedule-info-dump"></p>
-				</div>
+				<div id="routed-content"></div>
 			</main>
 		</div>
 	</body>
@@ -64,7 +56,8 @@
 
 	<!--App Pages-->
 	<script type="text/javascript" src="map-page.js"></script>
-	<script type="text/javascript" src="test-page.js"></script>
+	<script type="text/javascript" src="nearby-stop-page.js"></script>
+	<script type="text/javascript" src="schedule-info-page.js"></script>
 
 	<!--App-->
 	<script type="text/javascript" src="view-router.js"></script>

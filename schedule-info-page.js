@@ -1,20 +1,20 @@
-class MapPage {
+class ScheduleInfoPage {
     constructor() {
 
     }
 
     initialize() {
-        //Run() after fetching geolocation
         window.services.sta.initialize(updateUI);
 
         function updateUI() {
-            window.services.sta.loadBusMap();
-            // Example usage for getting time information for given stop
             window.services.sta.loadUpcomingBuses("s-c2kqk8mrkf-betz~alogdonway");
         }
     }
 
     render() {
-        return $('<div>').attr('id', 'map');
+        const $mainDiv = $('<div>');
+        $mainDiv.append($('h2').text('Schedule Information Example:'));
+        $mainDiv.append($('<div>').attr('id', 'schedule-info-dump'));
+        return $mainDiv;
     }
 }

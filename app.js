@@ -6,15 +6,15 @@ $(function () {
 
     const router = new ViewRouter('#routed-content');
     router.addRoute('map', new MapPage()); //man-page.js
-    router.addRoute('testRoute', new TestPage()); //test-page.js
+    router.addRoute('nearbyStop', new NearbyStopPage()); //nearby-stop-page.js
+    router.addRoute('scheduleInfo', new ScheduleInfoPage()); //schedule-info-page.js
     router.routeContent('map');
 
-    $('.nav-link').on('click', (evt) => router.routeContent($(evt.target).data('route')));
+    $('.nav-link').on('click', (evt) => {
+        router.routeContent($(evt.target).data('route'));
+    });
 
     /* Moved to map-page.js
-    //Run() after fetching geolocation
-    services.sta.initialize(updateUI());
-
     function updateUI() {
         services.sta.loadBusMap();
         services.sta.loadServicingRoutes();
