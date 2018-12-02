@@ -41,7 +41,6 @@
         }
 
         this.loadServicingRoutes = function () {
-
             var options = {
                 "lat": location.latitude,
                 "lon": location.longitude,
@@ -83,6 +82,8 @@
 
         // Private helper functions
         function getLocation(done) {
+                //added error handler in the event that the user
+                //blocks location access
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     location = {
@@ -90,6 +91,12 @@
                         'longitude': position.coords.longitude
                     };
                     done();
+                }, function(error){
+                        location = {
+                            'latitude': 47.491127,
+                            'longitude': -117.581512
+                        };
+                        done();
                 });
             } else {
                 // Default current location to cheney
