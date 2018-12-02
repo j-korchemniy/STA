@@ -4,7 +4,7 @@ $(function () {
     window.mdc.autoInit();
     initializeTopBarNav();
 
-    const router = new ViewRouter('#routed-content');
+    const router = new ViewRouter('#main-content');
     router.addRoute('map', new MapPage()); //man-page.js
     router.addRoute('nearbyStop', new NearbyStopPage()); //nearby-stop-page.js
     router.addRoute('scheduleInfo', new ScheduleInfoPage()); //schedule-info-page.js
@@ -13,15 +13,6 @@ $(function () {
     $('.nav-link').on('click', (evt) => {
         router.routeContent($(evt.target).data('route'));
     });
-
-    /* Moved to map-page.js
-    function updateUI() {
-        services.sta.loadBusMap();
-        services.sta.loadServicingRoutes();
-
-        // Example usage for getting time information for given stop
-        services.sta.loadUpcomingBuses("s-c2kqk8mrkf-betz~alogdonway");
-    }*/
 
     function initializeTopBarNav() {
         const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
