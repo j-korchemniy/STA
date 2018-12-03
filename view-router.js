@@ -8,10 +8,10 @@ class ViewRouter {
         this.routes[handlerName] = handler;
     }
 
-    routeContent(handlerName) {
+    routeContent(handlerName, params) {
         this.$contentView.empty();
-        const content = this.routes[handlerName].render();
+        const content = this.routes[handlerName].render(params);
         this.$contentView.append(content);
-        this.routes[handlerName].initialize();
+        this.routes[handlerName].initialize(params);
     }
 }

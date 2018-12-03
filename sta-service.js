@@ -17,9 +17,16 @@
                 center: new google.maps.LatLng(location.latitude, location.longitude)
             }
             var map = new google.maps.Map(document.getElementById('map'), options);
+            map.clearMarkers();
 
-            //map wouldn't load for me when style="position: relative;" so I forced it to absolute for testing
-            //document.getElementById('map').style="position: absolute;";
+            const youAreHereMarker = new google.maps.InfoWindow;
+            const pos = {
+                lat: location.latitude,
+                lng: location.longitude
+            };
+            youAreHereMarker.setPosition(pos);
+            youAreHereMarker.setContent('You Are Here');
+            youAreHereMarker.open(map);
 
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
@@ -40,6 +47,33 @@
             });
         }
 
+        this.loadSpecificStop = function (stopName, stopLat, stopLong) {
+            var options = {
+                zoom: 16,
+                center: new google.maps.LatLng(stopLat, stopLong)
+            };
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            map.clearMarkers();
+
+            const youAreHereMarker = new google.maps.InfoWindow;
+            const pos = {
+                lat: location.latitude,
+                lng: location.longitude
+            };
+            youAreHereMarker.setPosition(pos);
+            youAreHereMarker.setContent('You Are Here');
+            youAreHereMarker.open(map);
+            
+            // var transitLayer = new google.maps.TransitLayer();
+            // transitLayer.setMap(map);
+            
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(stopLat, stopLong),
+                map: map,
+                title: stopName  
+            });
+        }
+
         this.loadServicingRoutes = function () {
             var options = {
                 "lat": location.latitude,
@@ -47,17 +81,11 @@
                 "r": "1000",
             };
 
-            $.ajax({
+            return $.ajax({
                 url: "https://transit.land/api/v1/stops?",
                 type: "GET",
                 dataType: 'json',
                 data: options,
-                success: function (response) {
-                    $("#bus-info-dump").html(JSON.stringify(response));
-                },
-                error: function (xhr) {
-                    console.error("Failed to get nearby bus stop information.");
-                }
             });
         }
 
@@ -79,6 +107,8 @@
                 }
             });
         }
+
+        this.currentLocation = () => location;
 
         // Private helper functions
         function getLocation(done) {
@@ -127,4 +157,13 @@
         }
     }
 
+    //Clear Markers Functionality for Maps
+    google.maps.Map.prototype.clearMarkers = function() {
+        if(this.markers) {
+            for(var i=0; i < this.markers.length; i++){
+                this.markers[i].setMap(null);
+            }
+            this.markers = new Array();
+        }
+    };
 })(window.services = window.services || {});

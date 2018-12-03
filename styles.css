@@ -26,3 +26,32 @@ body, html {
 .app-bar {
     position: absolute;
 }
+
+/*MDC Card Stuff*/
+.mdc-card {
+  margin: 30px;
+}
+
+.card-header {
+  margin: 1.25rem 0;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+  .card-header h2,
+  .card-header h3 {
+    margin: 0;
+  }
+
+.card-icon {
+  padding-right: 8px;
+}
+
+.card-title {
+    padding-left: 8px;
+}
+
+.card-body {
+  padding: 16px;
+}

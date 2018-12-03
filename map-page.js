@@ -3,14 +3,15 @@ class MapPage {
 
     }
 
-    initialize() {
+    initialize(params) {
         //Run() after fetching geolocation
         window.services.sta.initialize(updateUI);
 
         function updateUI() {
-            window.services.sta.loadBusMap();
-            // Example usage for getting time information for given stop
-            window.services.sta.loadUpcomingBuses("s-c2kqk8mrkf-betz~alogdonway");
+            if(params && params.stop)
+                window.services.sta.loadSpecificStop(params.stop.name, params.stop.latitude, params.stop.longitude);
+            else
+                window.services.sta.loadBusMap();
         }
     }
 

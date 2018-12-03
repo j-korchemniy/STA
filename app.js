@@ -6,7 +6,7 @@ $(function () {
 
     const router = new ViewRouter('#main-content');
     router.addRoute('map', new MapPage()); //man-page.js
-    router.addRoute('nearbyStop', new NearbyStopPage()); //nearby-stop-page.js
+    router.addRoute('nearbyStop', new NearbyStopPage(router)); //nearby-stop-page.js
     router.addRoute('scheduleInfo', new ScheduleInfoPage()); //schedule-info-page.js
     router.routeContent('map');
 
