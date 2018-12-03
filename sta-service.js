@@ -31,20 +31,8 @@
             var transitLayer = new google.maps.TransitLayer();
             transitLayer.setMap(map);
             
-            //Creates markers for every stop within 1000 meters of current lat/long
-            $.when(getNearbyStops()).done(function(){
-                  for(ix = 0; ix < nearbyStops.length; ix++)
-                  {
-                      var lat = nearbyStops[ix].geometry.coordinates[1];
-                      var lng = nearbyStops[ix].geometry.coordinates[0];
-
-                      var marker = new google.maps.Marker({
-                          position: new google.maps.LatLng(lat, lng),
-                          map: map,
-                          title: nearbyStops[ix].name    
-                      });
-                  }
-            });
+            buildMarkers(map);
+           
         }
 
         this.loadSpecificStop = function (stopName, stopLat, stopLong) {
@@ -112,8 +100,7 @@
 
         // Private helper functions
         function getLocation(done) {
-                //added error handler in the event that the user
-                //blocks location access
+                //added error handler in the event that the user blocks location access
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     location = {
@@ -138,6 +125,38 @@
             }
         }
         
+        function buildMarkers(map)
+        {
+            var infowindow = new google.maps.InfoWindow({
+                        content: ""
+                    });
+
+            $.when(getNearbyStops()).done(function(){
+                for(ix = 0; ix < nearbyStops.length; ix++)
+                {
+                    var lat = nearbyStops[ix].geometry.coordinates[1];
+                    var lng = nearbyStops[ix].geometry.coordinates[0];
+
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(lat, lng),
+                        map: map,
+                        title: nearbyStops[ix].name
+                    });
+
+                    marker.addListener('click', function(evt){
+                        infowindow.setContent(
+                        "<div>" +
+                            "<h1>" +
+                                this.title +
+                            "</h1>" +
+                        "</div>");
+
+                        infowindow.open(map, this);
+                    });
+                }
+            });
+        }
+
         function getNearbyStops()
         {
             return $.ajax({
@@ -166,4 +185,6 @@
             this.markers = new Array();
         }
     };
+
+
 })(window.services = window.services || {});
