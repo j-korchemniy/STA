@@ -116,7 +116,8 @@ class NearbyStopPage {
                 name: 'Stop Schedule',
                 handler: 'scheduleInfo',
                 data: {
-                    'stop_id': stop.onestop_id
+                    'stop_id': stop.onestop_id,
+                    'stop_name': stop.tags.stop_desc,
                 }
             }
         ];
