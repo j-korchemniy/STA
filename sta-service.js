@@ -82,21 +82,33 @@
                 "origin_onestop_id": busStopId,
             };
 
-            $.ajax({
+            return $.ajax({
                 url: "https://transit.land/api/v1/schedule_stop_pairs?",
                 type: "GET",
                 dataType: 'json',
                 data: options,
-                success: function (response) {
-                    if (response.schedule_stop_pairs) {
-                        $("#schedule-info-dump").html(JSON.stringify(response.schedule_stop_pairs));
-                        console.log(getSortedArrivalTimes(response.schedule_stop_pairs));
-                    }
-                },
-                error: function (xhr) {
-                    console.error("Failed to get bus schedule information");
-                }
             });
+        }
+
+        // Since we do not handle destination just get the next stops
+        this.getSortedArrivalTimes = function (schedule_stop_pairs) {
+
+            // Get current time in HH:MM:SS
+            let today = new Date();
+            let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+            // Get an array of the stop after the current time
+            let nextStopTimes = [];
+            for (i = 0; i < schedule_stop_pairs.length; i++) {
+                let arriveTime = schedule_stop_pairs[i].origin_arrival_time;
+                if (dateCompare(currentTime, arriveTime) < 0) {
+                    if (nextStopTimes.indexOf(arriveTime) === -1) {
+                        nextStopTimes.push(arriveTime);
+                    }
+                }
+            }
+            nextStopTimes.sort();
+            return nextStopTimes;
         }
 
         this.currentLocation = () => location;
@@ -176,27 +188,6 @@
                     console.error("Failed to get nearby stops");
                 }
             });
-        }
-
-        // Since we do not handle destination just get the next stops
-        function getSortedArrivalTimes(schedule_stop_pairs) {
-
-            // Get current time in HH:MM:SS
-            let today = new Date();
-            let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-            // Get an array of the stop after the current time
-            let nextStopTimes = [];
-            for (i = 0; i < schedule_stop_pairs.length; i++) {
-                let arriveTime = schedule_stop_pairs[i].origin_arrival_time;
-                if (dateCompare(currentTime, arriveTime) < 0) {
-                    if (nextStopTimes.indexOf(arriveTime) === -1) {
-                        nextStopTimes.push(arriveTime);
-                    }
-                }
-            }
-            nextStopTimes.sort();
-            return nextStopTimes;
         }
 
         // https://stackoverflow.com/questions/6632808/compare-two-time-hhmmss-strings
