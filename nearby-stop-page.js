@@ -92,7 +92,6 @@ class NearbyStopPage {
     }
 
     renderStop(stop) {
-        const self = this;
         const title = stop.tags.stop_desc;
         const $cardBody = $('<div>').addClass('card-body mdc-typography--body2');
         const $routesHeader = $('<h5>').text('Routes Servicing Stop:');

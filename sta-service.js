@@ -82,17 +82,11 @@
                 "origin_onestop_id": busStopId,
             };
 
-            $.ajax({
+            return $.ajax({
                 url: "https://transit.land/api/v1/schedule_stop_pairs?",
                 type: "GET",
                 dataType: 'json',
-                data: options,
-                success: function (response) {
-                    $("#schedule-info-dump").html(JSON.stringify(response));
-                },
-                error: function (xhr) {
-                    console.error("Failed to get bus schedule information");
-                }
+                data: options
             });
         }
 
