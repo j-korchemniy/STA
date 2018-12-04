@@ -80,6 +80,7 @@
         this.loadUpcomingBuses = function (busStopId) {
             var options = {
                 "origin_onestop_id": busStopId,
+                "per_page": "1000"
             };
 
             return $.ajax({
@@ -98,17 +99,17 @@
             let currentTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
             // Get an array of the stop after the current time
-            let nextStopTimes = [];
+            let nextStops = [];
             for (i = 0; i < schedule_stop_pairs.length; i++) {
                 let arriveTime = schedule_stop_pairs[i].origin_arrival_time;
                 if (dateCompare(currentTime, arriveTime) < 0) {
-                    if (nextStopTimes.indexOf(arriveTime) === -1) {
-                        nextStopTimes.push(arriveTime);
+                    if (nextStops.indexOf(arriveTime) === -1) {
+                        nextStops.push(schedule_stop_pairs[i]);
                     }
                 }
             }
-            nextStopTimes.sort();
-            return nextStopTimes;
+            nextStops.sort((a, b) => dateCompare(a.origin_arrival_time, b.origin_arrival_time));
+            return nextStops;
         }
 
         this.currentLocation = () => location;

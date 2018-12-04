@@ -14,8 +14,8 @@ class ScheduleInfoPage {
             const $target = $(target);
             window.services.sta.loadUpcomingBuses($target.data('stop_id')).then((data) => {
                 if (data.schedule_stop_pairs) {
-                    let arrivalTimes = window.services.sta.getSortedArrivalTimes(data.schedule_stop_pairs);
-                    self.renderArrivalTimes(arrivalTimes);
+                    let arrivals = window.services.sta.getSortedArrivalTimes(data.schedule_stop_pairs);
+                    self.renderArrivalTimes(arrivals);
                 }
                 const $title = $('<h2>').addClass('mdc-typography--headline4').text("Upcoming Bus Times: " + $target.data('stop_name'));
                 $title.css('padding-left', '30px');
@@ -25,24 +25,37 @@ class ScheduleInfoPage {
         }
     }
 
-    renderArrivalTimes(arrivalTimes) {
+    renderArrivalTimes(arrivals) {
         $(this.$busScheduleDiv).html("");
-        arrivalTimes.forEach(arrivalTime => this.renderArrivalTime(arrivalTime));
-        if(arrivalTimes.length === 0) {
+        arrivals.forEach(arrival => this.renderArrivalTime(arrival));
+        if(arrivals.length === 0) {
             this.$busScheduleDiv.append("<p style='padding-left:30px;'>No arrival times found. Please try another bus stop.</p>");
         }
     }
 
-    renderArrivalTime(arrivalTime) {
+    renderArrivalTime(arrival) {
         const $outerDiv = $('<div>').addClass('mdc-card');
         const $cardBody = $('<div>').addClass('card-body mdc-typography--body2');
-        const $title = $('<h2>').addClass('mdc-typography--headline4').text(arrivalTime);
-        const $subTitle = $('<p>').addClass('mdc-typography--headline8').text("Arrival Time");
+        const $title = $('<h2>').addClass('mdc-typography--headline4').text(arrival.trip_headsign);
+        const $subTitle = $('<p>').addClass('mdc-typography--headline8').text("Arrival Time: " + arrival.origin_arrival_time);
+        const $routeLabel = $('<span>').addClass('mdc-typography--headline8').text("Route: ");
+        const $chip = $('<span>').addClass('mdc-chip');
+        const $chipText = $('<div>').addClass('mdc-chip__text');
+        $chipText.text(this.extractRouteFromRouteId(arrival.route_onestop_id));
+        $chip.append($chipText);
+
         $cardBody.append($title);
         $cardBody.append($subTitle);
+        $cardBody.append($routeLabel);
+        $cardBody.append($chip);
         $outerDiv.append($cardBody);
 
         this.$busScheduleDiv.append($outerDiv);
+    }
+
+    extractRouteFromRouteId(routeId) {
+        const indexOfLastDash = routeId.lastIndexOf('-');
+        return routeId.substring(indexOfLastDash + 1, routeId.length);
     }
 
     render() {
