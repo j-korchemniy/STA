@@ -1,13 +1,14 @@
 class ScheduleInfoPage {
-    constructor() {
 
+    constructor() {
     }
 
-    initialize() {
+    initialize(target) {
         window.services.sta.initialize(updateUI);
 
         function updateUI() {
-            window.services.sta.loadUpcomingBuses("s-c2kqk8mrkf-betz~alogdonway");
+            const $target = $(target);
+            window.services.sta.loadUpcomingBuses($target.data('stopId'));
         }
     }
 
