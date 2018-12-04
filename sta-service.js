@@ -143,12 +143,17 @@
                         title: nearbyStops[ix].name
                     });
 
+                    const stopId = nearbyStops[ix].onestop_id;
+
                     marker.addListener('click', function(evt){
                         infowindow.setContent(
                         "<div>" +
                             "<h1>" +
                                 this.title +
                             "</h1>" +
+                            "<a class=\"nav-link mdc-list-item\" data-route=\"nearbyStop\" data-stop-id=\"" + stopId + "\" href=\"#\">" +
+                                "View Bus Stop" +
+                            "</a>" +
                         "</div>");
 
                         infowindow.open(map, this);

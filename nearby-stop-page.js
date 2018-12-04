@@ -5,13 +5,13 @@ class NearbyStopPage {
         this.clickHandlers
     }
 
-    initialize() {
+    initialize(target) {
         const self = this;
         window.services.sta.initialize(updateUI);
 
         function updateUI() {
             window.services.sta.loadServicingRoutes().then((data) => {
-                const sortedStops = self.formatData(data.stops);
+                const sortedStops = self.formatData(data.stops, $(target).data('stop-id'));
                 self.renderStops(sortedStops);
             });
         }
@@ -40,7 +40,7 @@ class NearbyStopPage {
         }
     }
 
-    formatData(stops) {
+    formatData(stops, stopId) {
         const self = this;
         const location = this.currentLocation;
         function compare(a, b) {
@@ -48,6 +48,9 @@ class NearbyStopPage {
             const bDistance = self.distance(location.latitude, location.longitude, b.geometry.coordinates[1], b.geometry.coordinates[0], 'K');
             return aDistance - bDistance;
         }
+
+        if(stopId)
+            stops = stops.filter(stop => stop.onestop_id === stopId);
 
         const storted = stops.sort(compare);
         return storted;
