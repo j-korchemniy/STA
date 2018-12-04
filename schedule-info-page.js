@@ -28,6 +28,9 @@ class ScheduleInfoPage {
     renderArrivalTimes(arrivalTimes) {
         $(this.$busScheduleDiv).html("");
         arrivalTimes.forEach(arrivalTime => this.renderArrivalTime(arrivalTime));
+        if(arrivalTimes.length === 0) {
+            this.$busScheduleDiv.append("<p style='padding-left:30px;'>No arrival times found. Please try another bus stop.</p>");
+        }
     }
 
     renderArrivalTime(arrivalTime) {

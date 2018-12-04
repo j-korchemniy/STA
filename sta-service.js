@@ -116,7 +116,7 @@
         // Private helper functions
         function getLocation(done) {
             //added error handler in the event that the user blocks location access
-            if (navigator.geolocation) {
+            if (navigator.geolocation && navigator.geolocation.getCurrentPosition) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     location = {
                         'latitude': position.coords.latitude,
