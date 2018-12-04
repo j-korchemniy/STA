@@ -85,7 +85,7 @@
             return $.ajax({
                 url: "https://transit.land/api/v1/schedule_stop_pairs?",
                 type: "GET",
-                dataType: 'json',
+                dataType: 'json',  
                 data: options
             });
         }

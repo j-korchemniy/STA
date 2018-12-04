@@ -24,26 +24,6 @@ class ScheduleInfoPage {
             });
         }
     }
-    
-    filterByToday(arrivals) {
-        const currentDate = new Date();
-        currentDate.setUTCHours(0, 0, 0, 0);
-        const todaysDateAndTime = currentDate.toISOString();
-        const todaysDateWithoutTime = todaysDateAndTime.replace('T00:00:00.000Z', '');
-
-        return arrivals.filter(arrival => arrival.service_added_dates.includes(todaysDateWithoutTime));
-    }
-
-    sortByProperty(arrivals, sortProperty) {
-        function compare(a,b) {
-            if (a[sortProperty] < b[sortProperty])
-                return -1;
-            if (a[sortProperty] > b[sortProperty])
-                return 1;
-            return 0;
-        }
-        return arrivals.sort(compare);
-    }
 
     renderArrivalTimes(arrivalTimes) {
         $(this.$busScheduleDiv).html("");
