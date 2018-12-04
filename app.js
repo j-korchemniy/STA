@@ -10,8 +10,8 @@ $(function () {
     router.addRoute('scheduleInfo', new ScheduleInfoPage()); //schedule-info-page.js
     router.routeContent('map');
 
-    $('.nav-link').on('click', (evt) => {
-        router.routeContent($(evt.target).data('route'));
+    $('body').on('click', '*[data-route]', (evt) => {
+        router.routeContent($(evt.target).data('route'), evt.target);
     });
 
     function initializeTopBarNav() {

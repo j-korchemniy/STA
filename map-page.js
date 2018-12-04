@@ -3,13 +3,14 @@ class MapPage {
 
     }
 
-    initialize(params) {
+    initialize(target) {
         //Run() after fetching geolocation
         window.services.sta.initialize(updateUI);
 
         function updateUI() {
-            if(params && params.stop)
-                window.services.sta.loadSpecificStop(params.stop.name, params.stop.latitude, params.stop.longitude);
+            const $target = $(target);
+            if($target && $target.data('stop-name'))
+                window.services.sta.loadSpecificStop($target.data('stop-name'), $target.data('latitude'), $target.data('longitude'));
             else
                 window.services.sta.loadBusMap();
         }

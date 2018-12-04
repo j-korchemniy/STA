@@ -2,6 +2,7 @@ class NearbyStopPage {
     constructor(uiRouter) {
         this.uiRouter = uiRouter;
         this.$busInfoDiv = $('<div>').attr('id', 'bus-info');
+        this.clickHandlers
     }
 
     initialize() {
@@ -72,7 +73,9 @@ class NearbyStopPage {
         for(const action of actions) {
             const $cardAction = $('<button>').addClass('mdc-button mdc-card__action mdc-card__action--button');
             $cardAction.text(action.name);
-            $cardAction.on('click', () => action.handler());
+            $cardAction.attr('data-route', action.handler);
+            for(const name in action.data)
+                $cardAction.attr('data-' + name, action.data[name]);
             $cardActionButtons.append($cardAction);
         }
         $cardActions.append($cardActionButtons);
@@ -99,23 +102,18 @@ class NearbyStopPage {
         const actions = [
             {
                 name: 'View On Map',
-                handler() {
-                    self.uiRouter.routeContent('map', {
-                        stop: {
-                            name: stop.tags.stop_desc,
-                            latitude: stop.geometry.coordinates[1],
-                            longitude: stop.geometry.coordinates[0]
-                        }
-                    });
+                handler: 'map',
+                data: {
+                    'stop-name': stop.tags.stop_desc,
+                    latitude: stop.geometry.coordinates[1],
+                    longitude: stop.geometry.coordinates[0]
                 }
             },
             {
                 name: 'Stop Schedule',
-                handler() {
-                    self.uiRouter.routeContent('scheduleInfo', {
-                        //TODO: Add parameters to filter the schedule info by stop
-                    });
-                }
+                handler: 'scheduleInfo',
+                data: {}
+                //TODO: Pass more data params
             }
         ];
         this.$busInfoDiv.append(this.renderCard($cardBody, title, actions));
