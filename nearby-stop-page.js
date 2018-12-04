@@ -114,8 +114,10 @@ class NearbyStopPage {
             {
                 name: 'Stop Schedule',
                 handler: 'scheduleInfo',
-                data: {}
-                //TODO: Pass more data params
+                data: {
+                    'stop_id': stop.onestop_id,
+                    'stop_name': stop.tags.stop_desc,
+                }
             }
         ];
         this.$busInfoDiv.append(this.renderCard($cardBody, title, actions));
